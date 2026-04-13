@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, memo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowUpRight, Play, Github, Linkedin, Mail, Code2, ExternalLink, ChevronRight } from 'lucide-react';
+import { ArrowUpRight, Play, Github, Linkedin, Mail, Code2, ExternalLink, ChevronRight, X, Compass } from 'lucide-react';
 import Hls from 'hls.js';
 import { Link } from 'react-router-dom';
 import { FluidParticlesBackground } from './components/ui/fluid-particles-background';
@@ -61,6 +61,7 @@ const fadeUpItem = {
 function App() {
   const [showPreloader, setShowPreloader] = useState(true);
   const [showMoreProjects, setShowMoreProjects] = useState(false);
+  const [isNavOpen, setIsNavOpen] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -81,7 +82,7 @@ function App() {
       name: "StudyBuddy — AI RAG Companion",
       desc: "NeuroNex 2026 Hackathon Winner: Full-stack AI tutor with multi-modal modes (PDF Core, Web Intel, Fast Research) backed by FAISS semantic retrieval, Groq Voice STT/TTS, and Llama 3.",
       stack: ["React", "FastAPI", "FAISS", "LangChain"],
-      video: "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260228_065522_522e2295-ba22-457e-8fdb-fbcd68109c73.mp4",
+      video: "https://ik.imagekit.io/ltf5ygxg9/STUDYBUDDY.mp4",
       repo: "https://github.com/DiganthGowdaGR/StudyBudy.git"
     },
     {
@@ -89,7 +90,7 @@ function App() {
       name: "AI Governance Suite",
       desc: "ML-powered model recommender and benchmarking matrix (ModelMatrix). Evaluates responses via Gemini judge, streaming live SSE telemetry, and matching prompt contexts for LLM routing cost-optimization.",
       stack: ["React", "FastAPI", "AWS Bedrock", "VertexAI"],
-      video: "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260228_065522_522e2295-ba22-457e-8fdb-fbcd68109c73.mp4",
+      video: "https://ik.imagekit.io/ltf5ygxg9/AI-GOV-R2.mp4",
       repo: "https://github.com/Capstone-82/POC-02.git"
     },
     {
@@ -108,22 +109,14 @@ function App() {
       name: "ML Evaluation Suite",
       desc: "Suite of ML models including CNNs, SVM, and Clustering algorithms achieving 97.95% image classification accuracy.",
       stack: ["PyTorch", "Scikit-learn", "Python"],
-      video: "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260228_065522_522e2295-ba22-457e-8fdb-fbcd68109c73.mp4"
-    },
-    {
-      id: 5,
-      name: "Explore World",
-      desc: "Full-stack travel booking website with responsive dynamic routing and conditional rendering for cross-device compatibility.",
-      stack: ["React", "Node.js", "MongoDB"],
-      video: "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260228_065522_522e2295-ba22-457e-8fdb-fbcd68109c73.mp4",
-      live: "https://explore-world-steel.vercel.app/"
+      video: "https://ik.imagekit.io/ltf5ygxg9/ML-CLIPS.mp4"
     },
     {
       id: 6,
-      name: "PES University Club Platform",
+      name: "PESU KKC-EC club",
       desc: "Developed and managed the official website for a university club of 160+ members as the appointed IT Head.",
       stack: ["React", "Node.js", "Tailwind CSS"],
-      video: "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260228_065522_522e2295-ba22-457e-8fdb-fbcd68109c73.mp4"
+      video: "https://ik.imagekit.io/ltf5ygxg9/KKC-EC-CLIPS.mp4"
     }
   ];
 
@@ -422,7 +415,7 @@ function App() {
               animate={{ height: showMoreProjects ? 'auto' : 0, opacity: showMoreProjects ? 1 : 0 }}
               className="overflow-hidden"
             >
-              <div className="pt-24 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="pt-24 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
                 {moreProjects.map((proj) => (
                   <div key={proj.id} className="group relative liquid-glass rounded-[2rem] flex flex-col transition-all duration-500 hover:-translate-y-3 z-10 bg-[#111]">
 
@@ -430,7 +423,7 @@ function App() {
                     <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 rounded-[2rem] -z-10" />
 
                     {/* Video Thumbnail Area */}
-                    <div className="relative h-64 w-full bg-black/50 overflow-hidden rounded-t-[2rem] m-[1.5px] mt-0 w-[calc(100%-3px)] border-b border-white/10">
+                    <div className="relative aspect-video w-full bg-black/50 overflow-hidden rounded-t-[2rem] m-[1.5px] mt-0 w-[calc(100%-3px)] border-b border-white/10">
                       <div className="absolute inset-0 bg-black/60 group-hover:opacity-0 transition-opacity duration-500 z-10 flex items-center justify-center text-white/30 group-hover:text-white/0">
                         <Play size={40} className="stroke-[1.5]" />
                       </div>
@@ -626,6 +619,50 @@ function App() {
           </div>
         </section>
 
+      </div>
+
+      {/* GLOBAL FLOATING NAVIGATION LOGIC */}
+      <div className="fixed bottom-6 right-6 lg:bottom-10 lg:right-10 z-[100] flex flex-col items-end gap-3 pointer-events-none">
+        <AnimatePresence>
+          {isNavOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: 20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 20, scale: 0.95 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="flex flex-col gap-3 items-end mb-2 pointer-events-auto"
+            >
+              {["Let's Connect", "Gallery", "Achievements", "Works", "About"].map((item) => (
+                item === 'Gallery' ? (
+                  <Link
+                    key={item}
+                    to="/blogs"
+                    onClick={() => setIsNavOpen(false)}
+                    className="px-6 py-[14px] liquid-glass rounded-full bg-black/60 backdrop-blur-xl border border-white/10 text-[15px] font-bold text-white hover:text-black hover:bg-white transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.05)]"
+                  >
+                    {item}
+                  </Link>
+                ) : (
+                  <a
+                    key={item}
+                    href={item === "Let's Connect" ? '#contact' : `#${item.toLowerCase()}`}
+                    onClick={() => setIsNavOpen(false)}
+                    className="px-6 py-[14px] liquid-glass rounded-full bg-black/60 backdrop-blur-xl border border-white/10 text-[15px] font-bold text-white hover:text-black hover:bg-white transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.05)]"
+                  >
+                    {item}
+                  </a>
+                )
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <button 
+          onClick={() => setIsNavOpen(!isNavOpen)}
+          className="pointer-events-auto w-[60px] h-[60px] rounded-full liquid-glass bg-white/10 backdrop-blur-2xl border border-white/20 shadow-[0_0_30px_rgba(255,255,255,0.15)] hover:shadow-[0_0_40px_rgba(255,255,255,0.3)] hover:scale-105 hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center text-white"
+        >
+          {isNavOpen ? <X size={26} strokeWidth={2.5} /> : <Compass size={28} strokeWidth={2} className="animate-[pulse_3s_ease-in-out_infinite]" />}
+        </button>
       </div>
     </>
   );
