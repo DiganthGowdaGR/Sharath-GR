@@ -90,7 +90,7 @@ function App() {
       name: "AI Governance Suite",
       desc: "ML-powered model recommender and benchmarking matrix (ModelMatrix). Evaluates responses via Gemini judge, streaming live SSE telemetry, and matching prompt contexts for LLM routing cost-optimization.",
       stack: ["React", "FastAPI", "AWS Bedrock", "VertexAI"],
-      video: "https://ik.imagekit.io/ltf5ygxg9/AI-GOV-R2.mp4",
+      video: "https://ik.imagekit.io/ltf5ygxg9/AI-R-22.mp4",
       repo: "https://github.com/Capstone-82/POC-02.git"
     },
     {
